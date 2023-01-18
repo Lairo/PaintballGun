@@ -4,39 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaintBallGun
+namespace PaintballGun
 {
     internal class PaintballGun
     {
-        public const int MAGAZINE_SIZE = 16;
+        public int MagazineSize { get; private set; } = 16;
+
 
         private int balls = 0;
-        private int ballsLoaded = 0;
 
-        public int GetBallsLoaded() { return ballsLoaded; }
+        public int BallsLoaded { get; private set; }
 
-        public bool IsEmpty() { return ballsLoaded == 0; }
 
-        public int GetBalls() { return balls; }
+        public bool IsEmpty() { return BallsLoaded == 0; }
 
-        public void SetBalls(int numberOfBalls){
-            if(numberOfBalls > 0)
-            balls = numberOfBalls;
-            Reload();
+       public int Balls
+        {
+            get { return balls; }
+            set
+            {
+                if (value > 0)
+                    balls = value;
+                Reload();
+            }
         }
 
         public void Reload()
         {
-            if (balls > MAGAZINE_SIZE)
-                ballsLoaded = MAGAZINE_SIZE;
+            if (balls > MagazineSize)
+                BallsLoaded = MagazineSize;
             else
-                ballsLoaded = balls;
+                BallsLoaded = balls;
         }
 
         public bool Shoot()
         {
-            if (ballsLoaded == 0) return false;
-            ballsLoaded--;
+            if (BallsLoaded == 0) return false;
+            BallsLoaded--;
             balls--;
             return true;
         }
